@@ -1,13 +1,13 @@
-name: CI & Publish
+name: CI & Release
 
 on:
   push:
     branches: ["main"]
   pull_request:
     branches: ["main"]
-  release:
-    types: [published]
-  workflow_dispatch: # manual trigger
+  # release:
+  #   types: [published]
+  # workflow_dispatch: # manual trigger
 
 jobs:
   build-and-test:
@@ -21,6 +21,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # required for semantic-release (full history)
 
       - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
@@ -40,15 +42,17 @@ jobs:
       - name: Run tests
         run: npm test
 
-  publish:
-    name: Publish to npm
+  release:
+    name: Release (semantic-release)
     needs: build-and-test
     runs-on: ubuntu-latest
-    if: github.event_name == 'release' || github.event_name == 'workflow_dispatch'
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
 
     steps:
-      - name: Checkout repo
+      - name: Checkout (full)
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -59,10 +63,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build before publish
+      - name: Build (before release)
         run: npm run build
 
-      - name: Publish package
-        run: npm publish --access public
+      - name: Run semantic-release
+        # run: npm publish --access public
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.PRISMA_SMART_QUERY_NPM }}
+        run: npx semantic-release
