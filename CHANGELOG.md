@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/Mechack08/prisma-smart-query/compare/v1.0.0...v1.1.0) (2025-09-19)
+
+
+### Features
+
+* fix version => modify ts and js example ([a05d5cf](https://github.com/Mechack08/prisma-smart-query/commit/a05d5cf02d86a7bafedbb8f7a8069fcee427ebe0))
+
 # 1.0.0 (2025-09-19)
 
 
