@@ -30,7 +30,10 @@ const prisma = new PrismaClient();
 const app = express();
 
 app.get("/users", async (req, res) => {
-  const { queryOptions, page, limit } = buildPrismaQueryOptions(
+  const {
+    queryOptions,
+    meta: { page, limit },
+  } = buildPrismaQueryOptions(
     req,
     {}, // baseWhere
     ["name", "email"], // searchable fields
@@ -68,7 +71,10 @@ const prisma = new PrismaClient();
 const app = express();
 
 app.get("/products", async (req: Request, res: Response) => {
-  const { queryOptions, page, limit } = buildPrismaQueryOptions(
+  const {
+    queryOptions,
+    meta: { page, limit },
+  } = buildPrismaQueryOptions(
     req,
     { isActive: true }, // baseWhere filter
     ["name", "description"], // searchable fields

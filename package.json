@@ -1,6 +1,6 @@
 {
   "name": "prisma-smart-query",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "A small helper for building Prisma query options with filtering, sorting, field limiting, pagination, and relations include.",
   "keywords": [
     "prisma",
@@ -22,13 +22,13 @@
     "email": "mechackkobius@gmail.com"
   },
   "homepage": "https://github.com/Mechack08/prisma-smart-query#readme",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
   "types": "dist/types/index.d.ts",
   "exports": {
     ".": {
-      "require": "./dist/cjs/index.js",
-      "import": "./dist/esm/index.js",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs",
       "types": "./dist/types/index.d.ts"
     }
   },
@@ -40,7 +40,8 @@
     "clean": "rm -rf dist",
     "test": "vitest --run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "express": "^5.1.0"
@@ -76,7 +77,6 @@
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
       "@semantic-release/changelog",
-      "@semantic-release/npm",
       [
         "@semantic-release/git",
         {
