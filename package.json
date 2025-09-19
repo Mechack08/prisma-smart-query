@@ -1,6 +1,6 @@
 {
   "name": "prisma-smart-query",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A small helper for building Prisma query options with filtering, sorting, field limiting, pagination, and relations include.",
   "keywords": [
     "prisma",
